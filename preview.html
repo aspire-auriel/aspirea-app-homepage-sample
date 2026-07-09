@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aspire Sample — Next.js/Tailwind preview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink: "#131313",
+        btn: { DEFAULT: "#131313", text: "#BEFFCF" },
+        navy: { DEFAULT: "#13137B", dark: "#0E0E5C" },
+        mint: { DEFAULT: "#D6FCE1", light: "#EDFAF0" },
+        card: "#FAFAFA", line: "#E9E9E9", muted: "#5B6B75",
+        slate: "#2C3444",
+      },
+      maxWidth: { shell: "1200px" },
+      keyframes: { marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } } },
+      animation: { marquee: "marquee 30s linear infinite" },
+    },
+  },
+};
+</script>
+<style>
+  body { font-family: Inter, system-ui, sans-serif; }
+  @media (prefers-reduced-motion: reduce) { .animate-marquee { animation: none; } }
+</style>
+</head>
+<body class="text-ink antialiased bg-white">
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-white">
+  <a href="#" class="block bg-mint text-center text-sm py-3 px-4 text-ink hover:bg-mint-light transition-colors">
+    🔥 <span class="font-semibold">New:</span> Earn 1.2% unlimited cashback on all corporate card spend. <span class="underline underline-offset-2">Learn more →</span>
+  </a>
+
+  <div class="mx-auto max-w-shell px-5 pt-10 md:pt-14">
+    <div class="relative rounded-[28px] overflow-hidden bg-mint" style="background-image:url('https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/6a0172ace415cdbc01e0932d_home-01-p-500.webp');background-size:cover;background-position:center;background-repeat:no-repeat">
+      <div class="relative grid lg:grid-cols-2 items-center">
+        <div class="px-6 sm:px-10 md:px-14 py-12 md:py-20">
+          <h1 class="text-4xl md:text-6xl font-semibold tracking-tight text-ink leading-[1.05]">The finance stack for global businesses</h1>
+          <p class="mt-5 text-base sm:text-lg text-ink/70 max-w-md">Multi-currency, multi-market, multi-time zone — Aspire does business like you do.</p>
+          <div class="mt-8 max-w-md">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-xl bg-white p-2 sm:pl-5 shadow-sm">
+              <input type="email" placeholder="Enter your work email" class="flex-1 bg-transparent text-ink placeholder:text-muted/70 focus:outline-none px-3 sm:px-0 py-2 sm:py-0" />
+              <button class="rounded-lg bg-btn px-6 py-3 font-medium text-btn-text hover:opacity-90 transition-opacity whitespace-nowrap">Get Started</button>
+            </div>
+          </div>
+        </div>
+        <div class="relative lg:pl-4 flex items-center justify-center px-6 sm:px-10 lg:px-0 pb-8 lg:py-0">
+          <img src="https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/6a02b9745355b96af94975eb_home-02-v2.webp" alt="Aspire product dashboard" class="w-full h-auto max-w-[520px]" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-shell px-5 pt-10 text-center">
+    <p class="font-medium text-ink">Trusted by 50,000+ modern businesses</p>
+  </div>
+
+  <div class="mt-8 py-6 overflow-hidden">
+    <div class="relative w-screen overflow-hidden" style="mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)">
+      <div id="logos" class="flex w-max animate-marquee gap-16 items-center"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="bg-white py-24 md:py-32">
+  <div class="mx-auto max-w-shell px-5">
+    <h2 class="text-4xl md:text-5xl font-normal tracking-tight text-ink text-center max-w-2xl mx-auto leading-tight">Everything you need to grow your business</h2>
+    <div id="features" class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="bg-white border-t border-line py-16 md:py-20">
+  <h2 class="text-4xl md:text-5xl font-normal tracking-tight text-ink text-center">Hear it first from our customers</h2>
+  <div class="relative mx-auto max-w-shell px-5 md:px-20 mt-10 md:mt-14">
+    <button onclick="go(-1)" aria-label="Previous" class="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 text-3xl text-muted/50 hover:text-ink transition-colors z-10">‹</button>
+    <button onclick="go(1)" aria-label="Next" class="hidden md:block absolute right-2 top-1/2 -translate-y-1/2 text-3xl text-muted/50 hover:text-ink transition-colors z-10">›</button>
+    <div id="slide" class="grid md:grid-cols-2 gap-8 md:gap-16 items-center"></div>
+  </div>
+  <!-- mobile arrows + dots -->
+  <div class="mt-10 flex items-center justify-center gap-6">
+    <button onclick="go(-1)" aria-label="Previous" class="md:hidden text-2xl text-muted/60 hover:text-ink transition-colors">‹</button>
+    <div id="dots-bottom" class="flex items-center justify-center gap-2"></div>
+    <button onclick="go(1)" aria-label="Next" class="md:hidden text-2xl text-muted/60 hover:text-ink transition-colors">›</button>
+  </div>
+</section>
+
+<script>
+const logos = [
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc2664_Group%201242151271.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc266e_hmlet.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc266c_Group%201242151269.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc266a_HIPVAN.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc2668_Group%201242151272.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc2662_Group%201242151276.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc2670_Group%201242151274.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc2666_Group%201242151275.png",
+"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69b8c0ee47787c088dcc2672_Group%201242151273.png",
+];
+
+const feat = [
+{name:"Business Account",desc:"Open and manage multi-currency accounts built for global growth",icon:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>'},
+{name:"FX & Payments",desc:"Move money worldwide faster, at better rates",icon:'<ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3"/><ellipse cx="15" cy="15" rx="6" ry="3"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-2"/>'},
+{name:"Corporate Cards",desc:"Empower teams with smart cards that track every expense",icon:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>'},
+{name:"Yield",desc:"Unlock returns on your SGD and USD funds with daily interest",icon:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M9 11l3-3 3 3"/>'},
+{name:"Integrations",desc:"Connect Aspire to your existing tools and automate workflows",icon:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><path d="M17 3v6M14 6h6"/><rect x="3" y="14" width="8" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'},
+{name:"Expense Management",desc:"Control company spending with real-time visibility and approvals",icon:'<path d="M21 12a9 9 0 1 1-9-9v9z"/><path d="M12 3a9 9 0 0 1 9 9h-9z"/>'},
+];
+
+const items = [
+{quote:"As a startup, we needed more flexible solutions to support our increasing needs, as well as ones that'd make the most financial sense in supporting our growth.",name:"Gregory Van",role:"CEO of Endowus",logo:"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69ba3cfc33149763ebfb9e94_endowus-logo.webp",portrait:"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69ba3c374dcccb1bef713f9b_corp-card-16.webp",href:"https://aspireapp.com/case-studies/endowus",stats:[{value:"$111,000",label:"Saved per year"},{value:"900hr",label:"Saved per year"}]},
+{quote:"By leveraging Aspire, First Page aimed to establish tighter control over our financial outflows, ensuring that all media spending stayed within the allocated budget limits. This was crucial for maintaining financial discipline and ensuring that our company's marketing efforts were both effective and sustainable.",name:"Holly Qian",role:"Head of Finance",logo:"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69df5319b436fb7dd53e6765_FirstPage.svg",portrait:"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69df532018b139a23e06cda4_a2f5d2fc6ae3a12e055437e72ba228b4_Frame%201707480627.webp",href:"https://aspireapp.com/case-studies/first-page-digital",stats:[{value:"$80,405",label:"Saved per year"},{value:"2,834hrs",label:"Saved per year"}]},
+{quote:"In the past, we used different devices for calls, music, and work. Just like smartphones brought everything together, Aspire elegantly combines corporate cards, FX, business accounts, payables, and much more, into one user-friendly interface.",name:"William Chong",role:"Finance Director at Glints",logo:"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69df5413231b3e584013305c_Glints.svg",portrait:"https://cdn.prod.website-files.com/5ed5b60be1889f546024ada0/69df542c7288cd815f31316b_Frame%201707480627%20(1).webp",href:"https://aspireapp.com/case-studies/glints",stats:[{value:"$28,037",label:"Saved per year"},{value:"860hrs",label:"Saved per year"}]},
+];
+
+document.getElementById("logos").innerHTML = [...logos,...logos].map(s=>`<img src="${s}" alt="logo" class="h-7 w-auto object-contain opacity-70 grayscale" />`).join("");
+
+document.getElementById("features").innerHTML = feat.map(f=>{
+  return `<a href="#" class="group rounded-[18px] p-8 bg-card transition-transform hover:-translate-y-0.5">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="text-ink">${f.icon}</svg>
+    <h3 class="mt-6 text-2xl font-medium text-ink">${f.name}</h3>
+    <p class="mt-3 leading-relaxed text-slate/70">${f.desc}</p>
+  </a>`;
+}).join("");
+
+let index=0;
+function dots(id){document.getElementById(id).innerHTML=items.map((_,i)=>`<button onclick="setIndex(${i})" aria-label="Go to ${i+1}" class="h-1.5 w-1.5 rounded-full transition-colors ${i===index?'bg-ink':'bg-line'}"></button>`).join("");}
+function render(){
+  const t=items[index];
+  document.getElementById("slide").innerHTML=`
+    <div class="relative rounded-[14px] overflow-hidden aspect-[4/5] w-full max-w-[340px] sm:max-w-[400px] mx-auto md:mx-0 md:ml-auto">
+      <img src="${t.portrait}" alt="${t.name}" class="absolute inset-0 h-full w-full object-cover" />
+      <div class="absolute bottom-4 left-4 text-white"><p class="font-semibold leading-tight">${t.name}</p><p class="text-sm text-white/80">${t.role}</p></div>
+    </div>
+    <div class="w-full max-w-md mx-auto md:mx-0">
+      <img src="${t.logo}" alt="" class="h-8 w-auto object-contain mb-6" />
+      <blockquote class="text-lg text-ink leading-relaxed">&ldquo;${t.quote}&rdquo;</blockquote>
+      <a href="${t.href}" class="mt-5 inline-flex items-center gap-2 text-ink underline underline-offset-4 decoration-line hover:decoration-ink transition-colors">Read the case study →</a>
+      <div class="mt-10 flex gap-12">${t.stats.map(s=>`<div><p class="text-3xl md:text-4xl font-medium text-ink">${s.value}</p><p class="text-sm text-muted mt-1">${s.label}</p></div>`).join("")}</div>
+    </div>`;
+  dots("dots-bottom");
+}
+function go(d){index=(index+d+items.length)%items.length;render();}
+function setIndex(i){index=i;render();}
+render();
+</script>
+</body>
+</html>
